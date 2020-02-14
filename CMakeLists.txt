@@ -140,6 +140,7 @@ if(DOXYGEN_FOUND)
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/html/doxygen.css
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/ponca.bib
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/ponca.mdoc
+      ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/concepts.mdoc
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/ponca_changelog.mdoc
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/ponca_user_manual.mdoc
       ${CMAKE_CURRENT_SOURCE_DIR}/doc/src/ponca_getting_started.mdoc
