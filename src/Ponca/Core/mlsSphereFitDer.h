@@ -119,6 +119,9 @@ public:
     /*! \brief Returns the second derivatives of the scalar field at the evaluation point */
     PONCA_MULTIARCH inline VectorArray dNormal() const;
 
+    /*! \brief Returns the second derivatives of the scalar field at the evaluation point */
+    PONCA_MULTIARCH inline Matrix hessian() const;
+
 }; //class MlsSphereFitDer
 
 #include "mlsSphereFitDer.hpp"
