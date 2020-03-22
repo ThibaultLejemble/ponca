@@ -21,6 +21,7 @@
 
 #include "Ponca/Core/sphereFit.h"
 #include "Ponca/Core/orientedSphereFit.h"
+#include "Ponca/Core/orientedEllipsoidFit.h"
 #include "Ponca/Core/mlsSphereFitDer.h"
 #include "Ponca/Core/curvature.h"
 #include "Ponca/Core/gls.h"
