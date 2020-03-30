@@ -181,7 +181,7 @@ public:
 
     /*!
         \brief return the estimated center of the ellipsoid
-        \warning return Vector inf if the fitted surface is planar
+        \warning return Vector inf if the fitted surface is planar or cylindric
     */
     PONCA_MULTIARCH inline VectorType center() const
     {
@@ -194,6 +194,16 @@ public:
 //        }
 
         return - Scalar(.5) * m_uq.inverse() * m_ul + basisCenter();
+    }
+
+    /*!
+        \brief return the matrix form of the ellipsoid
+    */
+    PONCA_MULTIARCH inline MatrixType matrix() const
+    {
+        //TODO manage when uq is not invertible (should check uq determinant)
+
+        return m_uq / (m_uc - Scalar(0.25) * m_ul.transpose() * m_uq.inverse() * m_ul);
     }
 
     //! \brief State indicating when the ellipsoid  has been normalized
