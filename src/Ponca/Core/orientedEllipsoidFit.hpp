@@ -44,15 +44,13 @@ MatrixType matrix_function_solve_diagonal_sylvester(const VectorType& D, const M
 //! \param A a symmetric NxN matrix
 //! \param C any NxN matrix
 //!
-//! \todo do not use inverse() but transpose() since P is orthogonal
-//!
 template<typename MatrixType>
 MatrixType matrix_function_solve_symmetric_sylvester(const MatrixType& A, const MatrixType& C)
 {
     Eigen::SelfAdjointEigenSolver<MatrixType> eig(A);
     const auto& D = eig.eigenvalues();
     const MatrixType& P = eig.eigenvectors();
-    const MatrixType Pinv = P.inverse();
+    const MatrixType Pinv = P.transpose();
     const MatrixType F = Pinv * C * P;
     const MatrixType Y = matrix_function_solve_diagonal_sylvester(D, F);
     const MatrixType X = P * Y * Pinv;
