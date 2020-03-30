@@ -15,15 +15,25 @@ template<typename MatrixType, class VectorType>
 MatrixType matrix_function_solve_diagonal_sylvester(const VectorType& D, const MatrixType& C)
 {
     using Index = typename VectorType::Index;
+    using Scalar = typename VectorType::Scalar;
 
     const Index n = D.size();
+    const Scalar epsilon = Eigen::NumTraits<Scalar>::dummy_precision();
 
     MatrixType X;
     for(Index i=0; i<n; ++i)
     {
         for(Index j=0; j<n; ++j)
         {
-            X(i,j) = C(i,j) / (D(i) + D(j));
+            Scalar d = D(i) + D(j);
+            if(abs(d) < epsilon)
+            {
+                X(i,j) = Scalar(0);
+            }
+            else
+            {
+                X(i,j) = C(i,j) / d;
+            }
         }
     }
     return X;
@@ -33,6 +43,8 @@ MatrixType matrix_function_solve_diagonal_sylvester(const VectorType& D, const M
 //! \brief solve AX + XA = C
 //! \param A a symmetric NxN matrix
 //! \param C any NxN matrix
+//!
+//! \todo do not use inverse() but transpose() since P is orthogonal
 //!
 template<typename MatrixType>
 MatrixType matrix_function_solve_symmetric_sylvester(const MatrixType& A, const MatrixType& C)
@@ -124,7 +136,7 @@ OrientedEllipsoidFit<DataPoint, _WFunctor, T>::finalize ()
 
     MatrixType A = Scalar(2) * m_sumW * m_prodPP - Scalar(4) * m_sumP * m_sumP.transpose();
     MatrixType C = m_sumW * m_prodPN - m_sumP * m_sumN.transpose();
-    C = C + C.transpose();
+    C = C + C.transpose().eval();
 
     Base::m_uq = internal::matrix_function_solve_symmetric_sylvester(A, C);
     Base::m_ul = invSumW * (m_sumN - 4 * Base::m_uq * m_sumP);
