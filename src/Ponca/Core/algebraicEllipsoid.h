@@ -193,7 +193,7 @@ public:
 //            return VectorType::Constant(Scalar(1.)/inf);
 //        }
 
-        return - Scalar(.5) m_uq.inverse() * m_ul + basisCenter();
+        return - Scalar(.5) * m_uq.inverse() * m_ul + basisCenter();
     }
 
     //! \brief State indicating when the ellipsoid  has been normalized
