@@ -132,12 +132,13 @@ OrientedEllipsoidFit<DataPoint, _WFunctor, T>::finalize ()
 
     Scalar invSumW = Scalar(1.)/m_sumW;
 
-    MatrixType A = Scalar(2) * m_sumW * m_prodPP - Scalar(4) * m_sumP * m_sumP.transpose();
+//    MatrixType A = Scalar(2) * m_sumW * m_prodPP - Scalar(4) * m_sumP * m_sumP.transpose();
+    MatrixType A = Scalar(2) * (m_sumW * m_prodPP - m_sumP * m_sumP.transpose());
     MatrixType C = m_sumW * m_prodPN - m_sumP * m_sumN.transpose();
     C = C + C.transpose().eval();
 
     Base::m_uq = internal::matrix_function_solve_symmetric_sylvester(A, C);
-    Base::m_ul = invSumW * (m_sumN - 4 * Base::m_uq * m_sumP);
+    Base::m_ul = invSumW * (m_sumN - Scalar(2) * Base::m_uq * m_sumP);
     Base::m_uc = - invSumW * ( Base::m_ul.dot(m_sumP) + (m_prodPP * Base::m_uq).trace() );
 
     Base::m_isNormalized = false;
