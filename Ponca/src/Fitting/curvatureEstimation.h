@@ -38,7 +38,7 @@ namespace Ponca
         PONCA_EXPLICIT_CAST_OPERATORS_DER(NormalDerivativesCurvatureEstimator,normalDerivativesCurvatureEstimator)
         PONCA_FITTING_DECLARE_FINALIZE
 
-    private:
+    public:
         //! \brief Compute principal curvature directions relatively to the tangent plane
         //! \see tangentPlane
         //! The finalize() method calls this function with useNormal=false by default.
