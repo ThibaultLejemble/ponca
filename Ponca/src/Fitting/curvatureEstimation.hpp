@@ -4,7 +4,7 @@ NormalDerivativesCurvatureEstimator<DataPoint, _WFunctor, DiffType, T>::finalize
 {
     if (Base::finalize() == STABLE) {
         if (Base::curvatureEstimatorBase().isValid()) Base::m_eCurrentState = CONFLICT_ERROR_FOUND;
-        Base::m_eCurrentState = computeCurvature(false);
+        Base::m_eCurrentState = computeCurvature(true);
     }
 
     return Base::m_eCurrentState;
