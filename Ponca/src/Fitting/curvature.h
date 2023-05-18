@@ -29,7 +29,7 @@ namespace Ponca
             PROVIDES_PRINCIPAL_CURVATURES
         };
 
-    private:
+    protected:
         /// \brief Principal curvature with highest absolute magnitude
         Scalar m_k1 {0},
         /// \brief Principal curvature with smallest absolute magnitude
