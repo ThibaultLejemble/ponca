@@ -34,6 +34,9 @@ public:
     template<class NeighborQueryT>
     VectorType project(const VectorType& p, const NeighborQueryT& nei);
 
+    template<class NeighborQueryT>
+    VectorType project(const VectorType& p, const VectorType& n, const NeighborQueryT& nei);
+
 public:
     void setScale(Scalar scale) {m_scale = scale;}
     void setStepMax(int step) {m_stepMax = step;}
