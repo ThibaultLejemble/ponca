@@ -7,6 +7,7 @@
 #pragma once
 
 #include "./defines.h"
+#include "../Common/Assert.h"
 
 #include <Eigen/Eigenvalues>
 #include <Eigen/Core>
