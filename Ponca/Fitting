@@ -41,4 +41,4 @@
 #include "src/Fitting/curvatureEstimation.h"
 #include "src/Fitting/gls.h"
 
-
+# include "src/Fitting/mlsProjection.h"
