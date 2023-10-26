@@ -134,7 +134,7 @@ namespace Ponca {
             PROVIDES_MEAN_NORMAL_DERIVATIVE,  /*!< \brief Provides derivative of the mean normal*/
         };
 
-        private:
+        protected:
         /*! \brief Derivatives of the input normals of the input points vectors*/
         VectorArray m_dSumN {VectorArray::Zero()};
 

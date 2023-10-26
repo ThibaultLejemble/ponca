@@ -37,7 +37,7 @@ public:
     using VectorType = typename DataPoint::VectorType; /*!< \brief Inherited vector type*/
     using WFunctor   = _WFunctor;                      /*!< \brief Weight Function*/
 
-private:
+protected:
     //! \brief Number of neighbors
     int m_nbNeighbors {0};
 
