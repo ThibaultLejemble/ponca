@@ -48,7 +48,7 @@ bool Varifold<DataPoint, _WFunctor, T>::addLocalNeighbor(
     constexpr Scalar n = 3.0;
 
     const Scalar rho_prime = rho_der((x_l - x_l0).norm() / t);
-    const Scalar xi = - t * rho_prime / 3;
+    const Scalar xi = - ((x_l - x_l0).norm() / t) * rho_prime / 3;
 
     const Scalar coeff = d/n 
         * m_l
