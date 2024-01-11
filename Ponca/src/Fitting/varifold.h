@@ -143,7 +143,8 @@ public:
     MatrixType m_P_l0;
 
     // accumulation
-    MatrixType m_A;
+    MatrixType m_nume;
+    Scalar m_deno;
 
     // results
     Scalar m_k1, m_k2;
@@ -185,4 +186,4 @@ public:
 } //namespace v1
 } //namespace Ponca
 
-#include <PCP/Ponca/varifold.hpp>
+#include "varifold.hpp"
