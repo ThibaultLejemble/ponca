@@ -1,4 +1,4 @@
-#include <PCP/Ponca/varifold.h>
+#include "varifold.h"
 
 namespace Ponca
 {
@@ -188,7 +188,8 @@ void Varifold<DataPoint, _WFunctor, T>::init(
     m_n_l0 = n_l0;
     m_P_l0 = MatrixType::Identity() - n_l0 * n_l0.transpose();
 
-    m_A = MatrixType::Zero();
+    m_nume = MatrixType::Zero();
+    m_deno = Scalar(0);
 
     m_k1 = Scalar(0);
     m_dir1 = VectorType::Zero();
@@ -208,7 +209,8 @@ bool Varifold<DataPoint, _WFunctor, T>::addLocalNeighbor(
 
     const VectorType n_l = attributes.normal();
     const MatrixType P_l = MatrixType::Identity() - n_l * n_l.transpose();
-    const VectorType delta_x = - localQ.normalized();
+    const Scalar d_l = localQ.norm();
+    const VectorType delta_x = localQ / d_l; // = localQ.normalized()
     const VectorType u = P_l * delta_x;
     const MatrixType DeltaP = P_l - m_P_l0;
     const VectorType Pl_nl0 = P_l * m_n_l0;
@@ -216,9 +218,10 @@ bool Varifold<DataPoint, _WFunctor, T>::addLocalNeighbor(
     const MatrixType a1 = u * Pl_nl0.transpose();
     const MatrixType a2 = u.dot(m_n_l0) * DeltaP;
 
-    w *= -1; // see WARNING in VarifoldWeightKernel::f()
+    w *= -1; // see WARNING in VarifoldWeightKernel::f() (nor necessary because of the ratio nume/deno)
 
-    m_A += w * (a1 + a1.transpose() - a2);
+    m_nume += w * (a1 + a1.transpose() - a2);
+    m_deno += w * d_l;
     
     return true;
 }
@@ -231,13 +234,13 @@ FIT_RESULT Varifold<DataPoint, _WFunctor, T>::finalize()
 
     constexpr Scalar epsilon = Eigen::NumTraits<Scalar>::dummy_precision();
 
-    if(std::abs(Base::m_sumW) < epsilon)
+    if(std::abs(m_deno) < epsilon)
         return UNSTABLE;
 
-    m_A /= Base::m_sumW;
+    const MatrixType A = m_nume / m_deno * Base::m_w.evalScale(); // d/2 = 1
 
     const Mat32 Q = tangentPlane();
-    const Mat22 B = - Q.transpose() * m_A * Q; // minus for sign convention
+    const Mat22 B = - Q.transpose() * A * Q; // minus for sign convention
 
     Eigen::SelfAdjointEigenSolver<Mat22> solver;
     solver.computeDirect(B);
