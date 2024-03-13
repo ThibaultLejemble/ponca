@@ -1,5 +1,10 @@
+#include "orientedEllipsoidFit.h"
 
-namespace internal {
+namespace Ponca
+{
+
+namespace internal
+{
 
 //!
 //! \brief solve DX + XD = C
@@ -278,3 +283,5 @@ OrientedEllipsoidDerImpl<DataPoint, _WFunctor, DiffType, T>::dShapeOperator3D() 
     }
     return dS;
 }
+
+} //namespace Ponca

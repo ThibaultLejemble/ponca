@@ -1,3 +1,7 @@
+#include "algebraicEllipsoid.h"
+
+namespace Ponca
+{
 
 template < class DataPoint, class _WFunctor, typename T>
 typename AlgebraicEllipsoid<DataPoint, _WFunctor, T>::Scalar
@@ -62,3 +66,5 @@ AlgebraicEllipsoid<DataPoint, _WFunctor, T>::primitiveGradient( const VectorType
         const VectorType lq = Base::m_w.convertToLocalBasis(_q);
         return m_ul + Scalar(2.f) * m_uq * lq;
 }
+
+} // namespace Ponca

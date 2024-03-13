@@ -48,6 +48,8 @@ OrientedEllipsoidFitImpl<DataPoint, _WFunctor,
             MeanNormal<DataPoint, _WFunctor,
                 AlgebraicEllipsoid<DataPoint, _WFunctor,T>>>>;
 
+
+
 template < class DataPoint, class _WFunctor, int DiffType, typename T>
 class OrientedEllipsoidDerImpl : public T
 {
@@ -87,7 +89,7 @@ public:
     PONCA_EXPLICIT_CAST_OPERATORS_DER(OrientedEllipsoidDerImpl,orientedEllipsoidDer)
     PONCA_FITTING_DECLARE_INIT_ADDDER_FINALIZE
 
-    // shape op 3D = d2 f /dx = 2 uq / norm(ul)
+    // shape op 3D = 2 uq / norm(ul)
     inline MatrixArray dShapeOperator3D() const;
 };
 
@@ -97,6 +99,6 @@ using OrientedEllipsoidDer =
         MeanPositionDer<DataPoint, _WFunctor, DiffType,
             MeanNormalDer<DataPoint, _WFunctor, DiffType, T>>>;
 
-#include "orientedEllipsoidFit.hpp"
-
 } //namespace Ponca
+
+#include "orientedEllipsoidFit.hpp"

@@ -63,11 +63,15 @@ public:
     PONCA_MULTIARCH inline VectorType primitiveGradient () const { return m_ul; }
 
     MatrixType dNormal() const {return 2 * m_uq / m_ul.norm();}
+    MatrixType hessian() const {return 2 * m_uq;}
 
+    //
     // f(x) = uc + ul^T x + x^T Uq x
     //      = uc + ul^T x + x^T P D P^T x
     //      = uc + ul^T P (P^T x) + (P^T x)^T D (P^T x)
     //      = uc + ul'^T y + y^T D y
+    //
+    // return ul' and D
     std::pair<VectorType,VectorType> canonical() const 
     {
         Eigen::SelfAdjointEigenSolver<MatrixType> eig(m_uq);
@@ -75,8 +79,8 @@ public:
             m_ul.transpose() * eig.eigenvectors(), 
             eig.eigenvalues());
     }
-
 }; //class AlgebraicEllipsoid
 
+} // namespace Ponca
+
 #include "algebraicEllipsoid.hpp"
-}
