@@ -38,6 +38,7 @@ public:
 public:
     PONCA_EXPLICIT_CAST_OPERATORS(OrientedEllipsoidFitImpl,orientedEllipsoidFit)
     PONCA_FITTING_DECLARE_INIT_ADD_FINALIZE
+    PONCA_FITTING_IS_SIGNED(true)
 
 }; //class OrientedEllipsoidFitImpl
 
