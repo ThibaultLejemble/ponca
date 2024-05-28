@@ -168,16 +168,16 @@ OrientedEllipsoidFitImpl<DataPoint, _WFunctor, T>::finalize()
 {
     // handle specific configurations
     // With less than 3 neighbors the fitting is undefined
-    if(Base::finalize() != STABLE || Base::m_nbNeighbors < 3)
+    if(Base::finalize() != STABLE || Base::getNumNeighbors() < 3)
     {
         return Base::m_eCurrentState;
     }
 
-    m_A = 2 * (Base::m_sumW * m_sumProdPP -  Base::m_sumP * Base::m_sumP.transpose());
-    MatrixType C = Base::m_sumW * m_sumProdPN - Base::m_sumP * Base::m_sumN.transpose();
+    m_A = 2 * (Base::getWeightSum() * m_sumProdPP -  Base::m_sumP * Base::m_sumP.transpose());
+    MatrixType C = Base::getWeightSum() * m_sumProdPN - Base::m_sumP * Base::m_sumN.transpose();
     C = C + C.transpose().eval();
     
-    const Scalar invSumW = Scalar(1.)/Base::m_sumW;
+    const Scalar invSumW = Scalar(1.)/Base::getWeightSum();
 
     Base::m_uq = internal::solve_symmetric_sylvester(m_A, C);
     Base::m_ul = invSumW * (Base::m_sumN - Scalar(2) * Base::m_uq * Base::m_sumP);
