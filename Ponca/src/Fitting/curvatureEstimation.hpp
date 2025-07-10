@@ -65,9 +65,9 @@ NormalDerivativesCurvatureEstimator<DataPoint, _WFunctor, DiffType, T>::tangentP
     // Two choices to compute a basis of the tangent plane
     if(useNormal)
     {
-        // Use a vector orthogonal to the surface (the gradient) and compute an
+        // Use the normal of the surface (the normalized gradient) and compute an
         // orthonormal basis from it
-        VectorType n = Base::primitiveGradient();
+        const VectorType n = Base::primitiveGradient().normalized();
         n.array().abs().minCoeff(&i0); // i0: dimension where n extends the least
         i1 = (i0+1)%3;
         i2 = (i0+2)%3;
