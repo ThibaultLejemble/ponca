@@ -36,6 +36,7 @@ class Plane : public T,
               public Eigen::Hyperplane<typename DataPoint::Scalar, DataPoint::Dim >
 {
     PONCA_FITTING_DECLARE_DEFAULT_TYPES
+    PONCA_FITTING_DECLARE_MATRIX_TYPE
 
 public:
     /// \brief Specialization of Eigen::Hyperplane inherited by Ponca::Plane
@@ -120,6 +121,13 @@ public:
     {
         // Uniform gradient defined only by the orientation of the plane
         return EigenBase::normal();
+    }
+
+    PONCA_MULTIARCH inline MatrixType hessian (const VectorType& _q) const {
+        return MatrixType::Zero();
+    }
+    PONCA_MULTIARCH inline MatrixType hessian () const {
+        return MatrixType::Zero();
     }
 }; //class Plane
 

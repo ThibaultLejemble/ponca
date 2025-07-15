@@ -46,6 +46,7 @@ template < class DataPoint, class _WFunctor, typename T >
 class AlgebraicSphere : public T
 {
     PONCA_FITTING_DECLARE_DEFAULT_TYPES
+    PONCA_FITTING_DECLARE_MATRIX_TYPE
 
 protected:
     enum
@@ -267,6 +268,13 @@ public:
         bool bReady    = Base::isReady();
 
         return bReady && bPlanar;
+    }
+
+    PONCA_MULTIARCH inline MatrixType hessian (const VectorType& _q) const {
+        return 2 * m_uq * MatrixType::Identity();
+    }
+    PONCA_MULTIARCH inline MatrixType hessian () const {
+        return 2 * m_uq * MatrixType::Identity();
     }
 
 }; //class AlgebraicSphere
