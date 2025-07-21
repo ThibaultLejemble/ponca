@@ -37,7 +37,7 @@ QuasiOrthogonalMLSProjection<FitT,FitFinalT>::project(const VectorType& p, const
             status = fit.finalize();
         }
 
-        if(status != Ponca::FIT_RESULT::STABLE)
+        if(not (status == Ponca::FIT_RESULT::STABLE or status == Ponca::FIT_RESULT::UNSTABLE))
         {
             return q;
         }
@@ -62,7 +62,7 @@ QuasiOrthogonalMLSProjection<FitT,FitFinalT>::project(const VectorType& p, const
             }
             status = m_fitFinal.finalize();
         }
-        return status == Ponca::FIT_RESULT::STABLE ? m_fitFinal.project(p) : q;
+        return (status == Ponca::FIT_RESULT::STABLE or status == Ponca::FIT_RESULT::UNSTABLE) ? m_fitFinal.project(p) : q;
     }
 }
 
